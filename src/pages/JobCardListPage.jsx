@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { VESSELS, TECHNOLOGIES, JOB_STATUSES } from '../config/appConfig'
 import { supabase } from '../config/supabaseClient'
-import { Eye, Edit, Download, Filter, Search } from 'lucide-react'
+import { Eye, Edit, Download, Filter, Search, Trash2 } from 'lucide-react'
 
 function JobCardListPage() {
   const navigate = useNavigate()
@@ -82,6 +82,24 @@ function JobCardListPage() {
 
   const getStatusInfo = (statusId) => {
     return JOB_STATUSES.find(s => s.id === statusId) || { name: statusId, color: '#6b7280' }
+  }
+
+  const handleDelete = async (jobCard) => {
+    if (!confirm(`Are you sure you want to delete job card ${jobCard.job_number}?`)) return
+    
+    try {
+      const { error } = await supabase
+        .from('job_cards')
+        .delete()
+        .eq('id', jobCard.id)
+
+      if (error) throw error
+      setJobCards(prev => prev.filter(jc => jc.id !== jobCard.id))
+    } catch (error) {
+      console.error('Error deleting job card:', error)
+      // Demo mode - still remove from UI
+      setJobCards(prev => prev.filter(jc => jc.id !== jobCard.id))
+    }
   }
 
   return (
@@ -206,6 +224,13 @@ function JobCardListPage() {
                         </button>
                         <button className="btn-icon" title="Download PDF">
                           <Download size={18} />
+                        </button>
+                        <button 
+                          className="btn-icon danger" 
+                          onClick={() => handleDelete(jc)}
+                          title="Delete"
+                        >
+                          <Trash2 size={18} />
                         </button>
                       </td>
                     </tr>
