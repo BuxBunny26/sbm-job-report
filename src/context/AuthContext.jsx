@@ -13,17 +13,6 @@ export function AuthProvider({ children }) {
   const [permissions, setPermissions] = useState({})
 
   useEffect(() => {
-    // Check for demo user in localStorage
-    const demoUser = localStorage.getItem('sbm-demo-user')
-    if (demoUser) {
-      const parsed = JSON.parse(demoUser)
-      setUser(parsed)
-      setUserRole(parsed.role)
-      setPermissions(ROLE_PERMISSIONS[parsed.role] || ROLE_PERMISSIONS['technician'])
-      setLoading(false)
-      return
-    }
-
     // Check active sessions
     const checkSession = async () => {
       try {
@@ -63,17 +52,20 @@ export function AuthProvider({ children }) {
     try {
       const { data, error } = await supabase
         .from('user_profiles')
-        .select('role')
+        .select('role, full_name')
         .eq('user_id', userId)
         .single()
 
       if (error) {
+        console.error('Error fetching user role:', error)
         // Default to technician if no profile found
         setUserRole('technician')
         setPermissions(ROLE_PERMISSIONS['technician'])
       } else {
         setUserRole(data.role)
         setPermissions(ROLE_PERMISSIONS[data.role] || ROLE_PERMISSIONS['technician'])
+        // Update user object with full name from profile
+        setUser(prev => ({ ...prev, full_name: data.full_name }))
       }
     } catch (error) {
       console.error('Error fetching user role:', error)
@@ -102,9 +94,6 @@ export function AuthProvider({ children }) {
   }
 
   const signOut = async () => {
-    // Clear demo user
-    localStorage.removeItem('sbm-demo-user')
-    
     const { error } = await supabase.auth.signOut()
     if (!error) {
       setUser(null)
@@ -112,13 +101,6 @@ export function AuthProvider({ children }) {
       setPermissions({})
     }
     return { error }
-  }
-
-  const demoLogin = (demoUser) => {
-    localStorage.setItem('sbm-demo-user', JSON.stringify(demoUser))
-    setUser(demoUser)
-    setUserRole(demoUser.role)
-    setPermissions(ROLE_PERMISSIONS[demoUser.role] || ROLE_PERMISSIONS['technician'])
   }
 
   const hasPermission = (permission) => {
@@ -133,7 +115,6 @@ export function AuthProvider({ children }) {
     signIn,
     signUp,
     signOut,
-    demoLogin,
     hasPermission
   }
 

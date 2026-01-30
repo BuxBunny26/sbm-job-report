@@ -4,34 +4,19 @@ import { useAuth } from '../context/AuthContext'
 import { CUSTOMER } from '../config/appConfig'
 import { Ship, Mail, Lock, Eye, EyeOff } from 'lucide-react'
 
-// Demo users for testing without Supabase
-const DEMO_USERS = [
-  { email: 'admin@wearcheck.com', password: 'admin123', role: 'admin', name: 'Admin User' },
-  { email: 'supervisor@wearcheck.com', password: 'super123', role: 'supervisor', name: 'John Supervisor' },
-  { email: 'tech@wearcheck.com', password: 'tech123', role: 'technician', name: 'Mike Technician' }
-]
-
 function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const { signIn, demoLogin } = useAuth()
+  const { signIn } = useAuth()
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
     setLoading(true)
-
-    // Check for demo login first
-    const demoUser = DEMO_USERS.find(u => u.email === email && u.password === password)
-    if (demoUser) {
-      demoLogin(demoUser)
-      navigate('/')
-      return
-    }
 
     try {
       const { error } = await signIn(email, password)
@@ -108,12 +93,6 @@ function LoginPage() {
         </form>
 
         <div className="login-footer">
-          <div className="demo-credentials">
-            <p><strong>Demo Logins:</strong></p>
-            <p>Admin: admin@wearcheck.com / admin123</p>
-            <p>Supervisor: supervisor@wearcheck.com / super123</p>
-            <p>Technician: tech@wearcheck.com / tech123</p>
-          </div>
           <p>© 2026 WearCheck Reliability Solutions</p>
         </div>
       </div>

@@ -467,12 +467,18 @@ body {
 
 .search-input svg {
   position: absolute;
-  left: 12px;
+  left: 10px;
   color: var(--text-muted);
+  pointer-events: none;
+  z-index: 1;
 }
 
+.filter-group .search-input input,
 .search-input input {
-  padding: 10px 14px 10px 40px;
+  padding-left: 36px !important;
+  padding-right: 14px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
   background: var(--bg-primary);
@@ -503,7 +509,7 @@ body {
 }
 
 .filter-group select,
-.filter-group input {
+.filter-group input:not(.search-input input) {
   padding: 8px 12px;
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
@@ -511,6 +517,11 @@ body {
   color: var(--text-primary);
   font-size: 14px;
   min-width: 150px;
+}
+
+.filter-group .search-input input {
+  padding: 8px 12px 8px 36px;
+  background: var(--bg-secondary);
 }
 
 .filters-panel {

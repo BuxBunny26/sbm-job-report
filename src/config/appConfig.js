@@ -38,40 +38,49 @@ export const JOB_STATUSES = [
 
 export const USER_ROLES = [
   { id: 'technician', name: 'Technician', level: 1 },
-  { id: 'supervisor', name: 'Supervisor', level: 2 },
-  { id: 'admin', name: 'Administrator', level: 3 }
+  { id: 'manager', name: 'Manager', level: 2 },
+  { id: 'super_admin', name: 'Super Admin', level: 3 }
 ];
 
 export const ROLE_PERMISSIONS = {
   technician: {
     canCreateJobCard: true,
     canEditOwnJobCard: true,
+    canEditAnyJobCard: false,
+    canDeleteJobCard: false,
     canApproveJobCard: false,
     canManageEquipment: false,
     canManageUsers: false,
     canApproveRequests: false,
     canRequestEquipment: true,
-    canViewAnalytics: true
+    canViewAnalytics: false,
+    canViewAllJobCards: false
   },
-  supervisor: {
+  manager: {
     canCreateJobCard: true,
     canEditOwnJobCard: true,
+    canEditAnyJobCard: true,
+    canDeleteJobCard: true,
     canApproveJobCard: true,
     canManageEquipment: true,
     canManageUsers: false,
     canApproveRequests: true,
     canRequestEquipment: true,
-    canViewAnalytics: true
+    canViewAnalytics: true,
+    canViewAllJobCards: true
   },
-  admin: {
+  super_admin: {
     canCreateJobCard: true,
     canEditOwnJobCard: true,
+    canEditAnyJobCard: true,
+    canDeleteJobCard: true,
     canApproveJobCard: true,
     canManageEquipment: true,
     canManageUsers: true,
     canApproveRequests: true,
     canRequestEquipment: true,
-    canViewAnalytics: true
+    canViewAnalytics: true,
+    canViewAllJobCards: true
   }
 };
 
