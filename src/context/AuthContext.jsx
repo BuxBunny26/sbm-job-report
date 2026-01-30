@@ -103,6 +103,20 @@ export function AuthProvider({ children }) {
     return { error }
   }
 
+  const resetPassword = async (email) => {
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`
+    })
+    return { data, error }
+  }
+
+  const updatePassword = async (newPassword) => {
+    const { data, error } = await supabase.auth.updateUser({
+      password: newPassword
+    })
+    return { data, error }
+  }
+
   const hasPermission = (permission) => {
     return permissions[permission] || false
   }
@@ -115,6 +129,8 @@ export function AuthProvider({ children }) {
     signIn,
     signUp,
     signOut,
+    resetPassword,
+    updatePassword,
     hasPermission
   }
 

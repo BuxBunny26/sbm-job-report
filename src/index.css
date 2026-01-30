@@ -887,6 +887,39 @@ tbody tr:hover {
   cursor: not-allowed;
 }
 
+.forgot-password-link {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 12px;
+  text-align: center;
+  width: 100%;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
+}
+
+.back-to-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.back-to-login:hover {
+  color: var(--text-primary);
+}
+
 .login-footer {
   text-align: center;
   margin-top: 24px;
