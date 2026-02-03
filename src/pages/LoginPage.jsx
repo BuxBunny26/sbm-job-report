@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import { CUSTOMER } from '../config/appConfig'
 import { Mail, Lock, Eye, EyeOff, ArrowLeft } from 'lucide-react'
 import sbmLogo from '../components/SBM OFFSHORE LOGO.png'
+import wearCheckLogo from '../WearCheck Logo.png'
 
 function LoginPage() {
   const [email, setEmail] = useState('')
@@ -181,6 +182,7 @@ function LoginPage() {
         )}
 
         <div className="login-footer">
+          <img src={wearCheckLogo} alt="WearCheck Reliability Solutions" style={{ height: 32, marginBottom: 8 }} />
           <p>© 2026 WearCheck Reliability Solutions</p>
         </div>
       </div>
