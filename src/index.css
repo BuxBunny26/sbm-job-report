@@ -841,12 +841,9 @@ tbody tr:hover {
 .login-logo {
   width: 80px;
   height: 80px;
-  background: var(--accent-primary);
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
   margin: 0 auto 16px;
 }
 
