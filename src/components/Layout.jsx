@@ -20,9 +20,9 @@ import {
   X,
   LogOut,
   Sun,
-  Moon,
-  Ship
+  Moon
 } from 'lucide-react'
+import wearCheckLogo from '../WearCheck Logo.png'
 
 function Layout() {
   const { user, userRole, signOut, hasPermission } = useAuth()
@@ -66,7 +66,7 @@ function Layout() {
           <Menu size={24} />
         </button>
         <div className="header-logo">
-          <Ship size={24} />
+          <img src={wearCheckLogo} alt="WearCheck" style={{ height: 24 }} />
           <span>{CUSTOMER.name} Job Report</span>
         </div>
         <button className="theme-toggle" onClick={toggleTheme}>
@@ -83,7 +83,7 @@ function Layout() {
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
           <div className="logo">
-            <Ship size={32} />
+            <img src={wearCheckLogo} alt="WearCheck" style={{ height: 32 }} />
             <div className="logo-text">
               <span className="logo-title">{CUSTOMER.name}</span>
               <span className="logo-subtitle">Job Report</span>
