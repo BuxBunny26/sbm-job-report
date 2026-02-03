@@ -31,8 +31,16 @@ function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const handleSignOut = async () => {
-    await signOut()
-    navigate('/login')
+    try {
+      const { error } = await signOut()
+      if (error) {
+        console.error('Sign out error:', error)
+      }
+      navigate('/login')
+    } catch (err) {
+      console.error('Sign out exception:', err)
+      navigate('/login')
+    }
   }
 
   const navItems = [
