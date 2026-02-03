@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { CUSTOMER } from '../config/appConfig'
-import { Ship, Mail, Lock, Eye, EyeOff, ArrowLeft } from 'lucide-react'
+import { Mail, Lock, Eye, EyeOff, ArrowLeft } from 'lucide-react'
+import sbmLogo from '../components/SBM OFFSHORE LOGO.png'
 
 function LoginPage() {
   const [email, setEmail] = useState('')
@@ -66,7 +67,7 @@ function LoginPage() {
       <div className="login-container">
         <div className="login-header">
           <div className="login-logo">
-            <Ship size={48} />
+            <img src={sbmLogo} alt="SBM Offshore" style={{ width: 80, height: 80, objectFit: 'contain' }} />
           </div>
           <h1>{CUSTOMER.name} Job Report</h1>
           <p>Sign in to access the system</p>
